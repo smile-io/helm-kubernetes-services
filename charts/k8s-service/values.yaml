@@ -188,6 +188,16 @@ podLabels: {}
 # NOTE: This variable is injected directly into the pod spec.
 podAnnotations: {}
 
+# hpaLabels will add the provided map to the labels for the HPA resource created if configured.
+# The keys and values are free form, but subject to the limitations of Kubernetes resource labels.
+# NOTE: This variable is injected directly into the HPA spec.
+hpaLabels: {}
+
+# hpaAnnotations will add the provided map to the annotations for the HPA resource created if configured.
+# The keys and values are free form, but subject to the limitations of Kubernetes resource annotations.
+# NOTE: This variable is injected directly into the HPA spec.
+hpaAnnotations: {}
+
 # minPodsAvailable specifies the minimum number of pods that should be available at any given point in time. This is
 # used to configure a PodDisruptionBudget for the included pod. See
 # https://blog.gruntwork.io/avoiding-outages-in-your-kubernetes-cluster-using-poddisruptionbudgets-ef6a4baa5085

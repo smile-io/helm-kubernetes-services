@@ -4,6 +4,20 @@ kind: HorizontalPodAutoscaler
 metadata:
   name: {{ include "k8s-service.fullname" . }}
   namespace: {{ $.Release.Namespace }}
+  labels:
+    # These labels are required by helm. You can read more about required labels in the chart best practices guide:
+    # https://docs.helm.sh/chart_best_practices/#standard-labels
+    helm.sh/chart: {{ include "k8s-service.chart" . }}
+    app.kubernetes.io/name: {{ include "k8s-service.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- with .Values.hpaLabels }}
+{{ toYaml . | indent 4 }}
+{{- end }}
+{{- with .Values.hpaAnnotations }}
+  annotations:
+{{ toYaml . | indent 4 }}
+{{- end }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
