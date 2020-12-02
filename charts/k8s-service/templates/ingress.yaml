@@ -24,6 +24,11 @@ metadata:
     helm.sh/chart: {{ include "k8s-service.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- if .Values.ingress.labels }}
+{{- with .Values.ingress.labels }}
+{{ toYaml . | indent 4 }}
+{{- end }}
+{{- end }}
 {{- if .Values.ingress.annotations }}
 {{- with .Values.ingress.annotations }}
   annotations:
