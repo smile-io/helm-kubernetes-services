@@ -105,6 +105,14 @@ spec:
       automountServiceAccountToken : {{ .Values.serviceAccount.automountServiceAccountToken }}
       {{- end }}
 
+      strategy: 
+        type: {{ .Values.deploymentStrategy }}
+        {{- if (eq .Values.deploymentStrategy "RollingUpdate" }}
+        rollingUpdate:
+          maxUnavailable: {{ .Values.rollingUpdate.maxUnavailable }}
+          maxSurge: {{ .Values.rollingUpdate.maxSurge }}
+        {{- end }}
+
       containers:
         - name: {{ .Values.applicationName }}
           {{- $repo := required "containerImage.repository is required" .Values.containerImage.repository }}

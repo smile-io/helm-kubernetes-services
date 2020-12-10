@@ -178,6 +178,15 @@ deploymentLabels: {}
 # NOTE: This variable is injected directly into the deployment spec.
 deploymentAnnotations: {}
 
+# deploymentStrategy sets the strategy used for deployments. Valid options are
+# "Recreate" and "RollingUpdate".
+deploymentStrategy: "RollingUpdate"
+
+rollingUpdate:
+  maxUnavailable: "25%"
+  maxSurge: "25%"
+
+
 # podLabels will add the provided map to the labels for the Pod resource created by the Deployment.
 # The keys and values are free form, but subject to the limitations of Kubernetes resource lables.
 # NOTE: This variable is injected directly into the pod spec.
