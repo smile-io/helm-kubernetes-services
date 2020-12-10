@@ -109,8 +109,8 @@ spec:
         type: {{ .Values.deploymentStrategy }}
         {{- if (eq .Values.deploymentStrategy "RollingUpdate" }}
         rollingUpdate:
-          maxUnavailable: {{ .Values.maxUnavailable }}
-          maxSurge: {{ .Values.maxSurge }}
+          maxUnavailable: {{ .Values.rollingUpdate.maxUnavailable }}
+          maxSurge: {{ .Values.rollingUpdate.maxSurge }}
         {{- end }}
 
       containers:
