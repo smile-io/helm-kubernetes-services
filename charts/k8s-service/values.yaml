@@ -197,6 +197,26 @@ podLabels: {}
 # NOTE: This variable is injected directly into the pod spec.
 podAnnotations: {}
 
+# hpaLabels will add the provided map to the labels for the HPA resource created if configured.
+# The keys and values are free form, but subject to the limitations of Kubernetes resource labels.
+# NOTE: This variable is injected directly into the HPA spec.
+hpaLabels: {}
+
+# hpaAnnotations will add the provided map to the annotations for the HPA resource created if configured.
+# The keys and values are free form, but subject to the limitations of Kubernetes resource annotations.
+# NOTE: This variable is injected directly into the HPA spec.
+hpaAnnotations: {}
+
+# pdbLabels will add the provided map to the labels for the PDB resource created if configured.
+# The keys and values are free form, but subject to the limitations of Kubernetes resource labels.
+# NOTE: This variable is injected directly into the HPA spec.
+pdbLabels: {}
+
+# pdbAnnotations will add the provided map to the annotations for the PDB resource created if configured.
+# The keys and values are free form, but subject to the limitations of Kubernetes resource annotations.
+# NOTE: This variable is injected directly into the HPA spec.
+pdbAnnotations: {}
+
 # minPodsAvailable specifies the minimum number of pods that should be available at any given point in time. This is
 # used to configure a PodDisruptionBudget for the included pod. See
 # https://blog.gruntwork.io/avoiding-outages-in-your-kubernetes-cluster-using-poddisruptionbudgets-ef6a4baa5085
@@ -212,6 +232,8 @@ minPodsAvailable: 0
 #                                       (https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types)
 #                                       Defaults to ClusterIP.
 #   - annotations (map)               : Annotations that should be added to the Service resource. This is injected
+#                                       directly in to the resource yaml.
+#   - labels      (map)               : Labels that should be added to the Service resource. This is injected
 #                                       directly in to the resource yaml.
 #   - ports       (map)    (required) : A map that specifies the port bindings of the service against the Pods in the
 #                                       Deployment. This has the same structure as containerPorts, with the additional
@@ -263,7 +285,9 @@ serviceMonitor:
 # The expected keys are:
 #   - enabled     (bool)         (required) : Whether or not the Ingress resource should be created. If false, no
 #                                             Ingress resource will be created.
-#   - annotations (map)                     : Annotations that should be added to the Service resource. This is injected
+#   - annotations (map)                     : Annotations that should be added to the Ingress resource. This is injected
+#                                             directly in to the resource yaml.
+#   - labels      (map)                     : Labels that should be added to the Ingress resource. This is injected
 #                                             directly in to the resource yaml.
 #   - tls         (list[map])               : Sets up TLS termination on the ingress rule. Each item is a separate TLS
 #                                             rule that maps to one or more hosts specified in this ingress rule. This
