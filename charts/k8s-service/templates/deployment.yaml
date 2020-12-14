@@ -83,6 +83,13 @@ spec:
       app.kubernetes.io/name: {{ include "k8s-service.name" . }}
       app.kubernetes.io/instance: {{ .Release.Name }}
       gruntwork.io/deployment-type: main
+  strategy: 
+    type: {{ .Values.deploymentStrategy }}
+    {{- if eq .Values.deploymentStrategy "RollingUpdate" }}
+    rollingUpdate:
+      maxUnavailable: {{ .Values.rollingUpdate.maxUnavailable }}
+      maxSurge: {{ .Values.rollingUpdate.maxSurge }}
+    {{- end }}
   template:
     metadata:
       labels:
@@ -104,14 +111,6 @@ spec:
       {{- if hasKey .Values.serviceAccount "automountServiceAccountToken" }}
       automountServiceAccountToken : {{ .Values.serviceAccount.automountServiceAccountToken }}
       {{- end }}
-
-      strategy: 
-        type: {{ .Values.deploymentStrategy }}
-        {{- if eq .Values.deploymentStrategy "RollingUpdate" }}
-        rollingUpdate:
-          maxUnavailable: {{ .Values.rollingUpdate.maxUnavailable }}
-          maxSurge: {{ .Values.rollingUpdate.maxSurge }}
-        {{- end }}
 
       containers:
         - name: {{ .Values.applicationName }}
