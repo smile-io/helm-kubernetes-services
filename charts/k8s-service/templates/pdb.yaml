@@ -14,13 +14,13 @@ metadata:
     helm.sh/chart: {{ include "k8s-service.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
-{ { - with .Values.pdbLabels } }
-{ { toYaml . | indent 4 } }
-{ { - end } }
-{ { - with .Values.pdbAnnotations } }
+{{ - with .Values.pdbLabels }}
+{{ toYaml . | indent 4 }}
+{{ - end }}
+{{ - with .Values.pdbAnnotations }}
   annotations:
-{ { toYaml . | indent 4 } }
-{ { - end } }
+{{ toYaml . | indent 4 }}
+{{ - end }}
 spec:
   minAvailable: {{ int .Values.minPodsAvailable }}
   selector:
